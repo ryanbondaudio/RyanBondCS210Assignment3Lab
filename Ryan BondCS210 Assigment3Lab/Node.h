@@ -10,20 +10,11 @@ template <typename  T>
 class Node
 {
 public:
-        Node(T *value) 
-        : value {value}
-        , next {nullptr}
-        {};
-        
-        void print() {
-                value->print();
-        }
-    
-    
-private:
-        T *value;
+        T *data;
         Node<T> *next;
-    
-    
-    
+        
+        explicit Node(T *value) 
+        : data {value}
+        , next {nullptr}
+        {}
 };
