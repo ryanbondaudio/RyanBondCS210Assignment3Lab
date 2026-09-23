@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include <assert.h>
+#include "List.h"
 #include <iostream>
 
 template <typename T>
-class ArrayList {
+class ArrayList: public List<T>{
 public:
     /** Constructor sets size to 0 by default.*/
     ArrayList()
@@ -15,68 +15,49 @@ public:
     , data{}
     {}
     
-    /** Adds an item at the beginning of the list */
-    void addItem(const T& item) {
-        assert(size < CAPACITY);
-        
-        for (auto i = size; i > 0; --i) {
-            data[i] = data[i - 1];
+    void addFront(T* value) override {
+        if (size_ >= CAPACITY) {
+            std::cout << "ArrayList is full." << std::endl;
+            return;
         }
-        
-        data[0] = item;
-        ++size;
+        for (int i = size_; i > 0; --i) {
+            data_[i] = data_[i - 1];
+        }
+        data_[0] = value;
+        ++size_;
+    }
+    void deleteFront() override {
+        if (size_ == 0) {
+            std::cout << "ArrayList is empty." << std::endl;
+            return;
+        }
+        delete data_[0];
+        for (int i = 0; i < size_ - 1; ++i) {
+            data_[i] = data_[i + 1];
+        }
+        --size_;
     }
     
-    /** Deletes the item held at the first index, shrinking the list */
-    void deleteFront() {
-        assert(size > 0);
-        
-        for (auto i = 0; i < size - 1; ++i) {
-            data[i] = data[i + 1];
-        }
-        --size;
-    }
-    
-    /** Determines whether an item exists in the list */
-    bool searchItem(const T& item) const {
-        assert(size >= 0);
-        assert(size < CAPACITY + 1);
-        
-        for (auto i = 0; i < size; ++i)
-        {
-            if (data[i] == item)
-                    return true;
+    bool search(T* value) const override {
+        for (int i = 0; i < size_; ++i) {
+            if (*data_[i] == *value) return true;
         }
         return false;
     }
-
-    /** Prints the list to the console */
-    void printList() const {
-        for (auto i = 0; i < size; ++i) {
-            std::cout << data[i] << " ";
+    void print() const override {
+        for (int i = 0; i < size_; ++i) {
+            std::cout << *data_[i] << ",";
         }
-        
-        std::cout << "\n";
+        std::cout << std::endl;
     }
-    
-    /** Adds an item to the end of the list */
-    void addBack(const T& item) {
-        assert(size < CAPACITY);
-        
-        ++size;
-        data[size - 1] = item;
+    ~ArrayList() override {
+        for (int i = 0; i < size_; ++i) {
+            delete data_[i];
+        }
     }
-    
-    /** Deletes an item from the back of the list */
-    void deleteBack()   {
-        assert(size > 0);
-        
-        --size;
-    }
-    
 private:
-    static constexpr int CAPACITY {20};
-    T data[CAPACITY];
-    int size;
+    static const int CAPACITY = 20;
+    T* data_[CAPACITY];
+    int size_;
     
 };
