@@ -11,8 +11,8 @@ class ArrayList: public List<T>{
 public:
     /** Constructor sets size to 0 by default.*/
     ArrayList()
-    : size{0}
-    , data{}
+    : size_{0}
+    , data_{}
     {}
     
     void addFront(T* value) override {

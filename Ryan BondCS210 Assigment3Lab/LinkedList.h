@@ -22,7 +22,7 @@ public:
     void deleteFront() override
     {
         if (head_ == nullptr) {
-            std:cout << "LinkedList is empty" << std::endl; 
+            std::cout << "LinkedList is empty" << std::endl; 
             return;
         }
         Node<T> *doomed {head_};

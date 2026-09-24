@@ -19,7 +19,7 @@ public:
     }
     
     friend std::ostream& operator<<(std::ostream& out, const Data& d) {
-        return out << d.name << "_" << d.numID_;
+        return out << d.name_ << "_" << d.numID_;
     }
     
 private:
