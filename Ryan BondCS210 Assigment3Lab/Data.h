@@ -4,6 +4,28 @@
 
 #pragma once
 
+#include <ostream>
+#include <string>
 
+class Data {
+public:
+    Data(int numID, const std::string& name)
+    : numID_(numID)
+    , name_(name)
+    {}
+    
+    bool operator==(const Data& other) const {
+        return numID_ == other.numID_;
+    }
+    
+    friend std::ostream& operator<<(std::ostream& out, const Data& d) {
+        return out << d.name << "_" << d.numID_;
+    }
+    
+private:
+    int numID_;
+    std::string name_;
+    
+};
 
 
