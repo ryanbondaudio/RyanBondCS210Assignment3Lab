@@ -39,12 +39,19 @@ public:
         }
         return false;
     }
-        
-    
-    void print() const override{
+
+
+    void print() const override
+    {
         Node<T>* current = head_;
-        while (current != nullptr) {
-            std::cout << *current->data << ",";
+        while (current != nullptr)
+        {
+            if (current->next == nullptr) {
+                std::cout << *current->data << "\n";
+            }
+            else {
+                std::cout << *current->data << ", ";
+            }
             current = current->next;
         }
         std::cout << std::endl;
@@ -61,5 +68,5 @@ public:
     }
     
 private:
-    Node<T> *head_;
+    Node<T> * head_;
 };
